@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"log"
+	"time"
 
 	"github.com/rpolnx/go-background-processor/internal/configs"
 	"github.com/rpolnx/go-background-processor/internal/daemon"
@@ -27,8 +28,16 @@ func main() {
 	}
 
 	enqueuer := daemon.NewEnqueuer(appConfig, cachePool)
-	enqueuer.EnqueueJob1()
-	enqueuer.EnqueueJob2()
+	//continue create jobs
+
+	go func() {
+		for i := 0;; i++ {
+			time.Sleep(time.Second * time.Duration(5))
+			enqueuer.EnqueueJob1(i)
+			enqueuer.EnqueueJob2(i)
+			logrus.Info("hey ooo")
+		}
+	}()
 
 	processor := daemon.NewProcessor(appConfig, cachePool)
 	go processor.ProcessJobs()
