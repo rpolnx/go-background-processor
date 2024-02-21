@@ -17,9 +17,17 @@ const (
 )
 
 type AppConfig struct {
-	Host    string     `env:"HOST"`
-	Port    int        `env:"PORT"`
-	Profile AppProfile `env:"PROFILE"`
+	Host    string      `env:"HOST"`
+	Port    int         `env:"PORT"`
+	Profile AppProfile  `env:"PROFILE"`
+	Redis   RedisConfig `env:"REDIS"`
+}
+
+type RedisConfig struct {
+	Host     string `env:"REDIS_HOST"`
+	Port     int    `env:"REDIS_PORT"`
+	User     string `env:"REDIS_USER"`
+	Password string `env:"REDIS_PASSWORD"`
 }
 
 var GlobalAppConfig *AppConfig = &AppConfig{}
