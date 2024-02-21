@@ -1,8 +1,18 @@
 Proof of concept of golang background processor
 
+## Introduction
+
 This repository means to test the project [Go work](https://github.com/gocraft/work)
 
+## Diagram for common jobs
+
 ![Diagram for jobs](./files/diagram_background_processor.jpg)
+
+
+## Scheduled jobs
+
+![Scheduled jobs](./files/scheduled_jobs.png)
+
 
 ## Running
 

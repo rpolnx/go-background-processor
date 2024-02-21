@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"log"
+	"math/rand"
 	"time"
 
 	"github.com/rpolnx/go-background-processor/internal/configs"
@@ -31,10 +32,16 @@ func main() {
 	//continue create jobs
 
 	go func() {
-		for i := 0;; i++ {
+		rand.Seed(time.Now().UnixNano())
+
+		for idx := 0; ; idx++ {
 			time.Sleep(time.Second * time.Duration(5))
-			enqueuer.EnqueueJob1(i)
-			enqueuer.EnqueueJob2(i)
+			enqueuer.EnqueueJob1(idx)
+			enqueuer.EnqueueJob2(idx)
+
+			randomInt := rand.Intn(101)
+			enqueuer.RegisterScheduledJob(idx, randomInt)
+
 			logrus.Info("hey ooo")
 		}
 	}()

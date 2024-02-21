@@ -41,6 +41,21 @@ func (d *Enqueuer) EnqueueJob2(idx int) {
 	}
 }
 
+func (d *Enqueuer) RegisterScheduledJob(idx int, secondsToSchedule int) {
+	logrus.Infof("Enqueued scheduled_job - schedule me in %ds", secondsToSchedule)
+	_, err := d.Enqueuer.EnqueueIn("schedule_in_third_second_job", int64(secondsToSchedule),
+		work.Q{
+			"job_id":  idx,
+			"job_scheduled for":  secondsToSchedule,
+			"context": "scheduled in future",
+		},
+	)
+
+	if err != nil {
+		log.Fatal(err)
+	}
+}
+
 func NewEnqueuer(appConfig *configs.AppConfig, cachePool *redis.Pool) *Enqueuer {
 	var enqueuer = work.NewEnqueuer(appConfig.AppName, cachePool)
 
