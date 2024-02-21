@@ -1,0 +1,8 @@
+version: "3.8"
+
+services:
+  redis-cache:
+    container_name: redis-cache
+    image: redis:7.2.4-alpine3.19
+    ports:
+      - 6379:6379
