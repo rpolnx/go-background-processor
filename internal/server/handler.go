@@ -5,7 +5,11 @@ import (
 	"github.com/rpolnx/go-background-processor/internal/configs"
 )
 
-func InitializeServer(config *configs.AppConfig) (*gin.Engine, error) {
+type HttpServer struct {
+	Engine *gin.Engine
+}
+
+func InitializeServer(config *configs.AppConfig) (*HttpServer, error) {
 	r := gin.New()
 
 	r.Use(gin.Recovery())
@@ -18,5 +22,7 @@ func InitializeServer(config *configs.AppConfig) (*gin.Engine, error) {
 		})
 	})
 
-	return r, nil
+	return &HttpServer{
+		Engine: r,
+	}, nil
 }

@@ -1,8 +1,21 @@
 version: "3.8"
 
 services:
-  redis-cache:
-    container_name: redis-cache
+  redis:
     image: redis:7.2.4-alpine3.19
     ports:
       - 6379:6379
+
+  work-webui:
+    build:
+      context: .
+      dockerfile: work.Dockerfile
+    ports:
+      - 5040:5040
+    environment:
+      REDIS_HOST: "redis://@redis:6379/0"
+      NAMESPACE: "go-background-processor"
+      APP_LISTEN_HOST: ":5040"
+    restart: always
+    depends_on:
+      - redis
